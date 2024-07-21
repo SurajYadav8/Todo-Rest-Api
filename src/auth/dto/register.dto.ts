@@ -11,7 +11,7 @@ export class RegisterUserDto {
 
     @ApiProperty()
     @IsString()
-    @Length(6,20)
+    @Length(2,20)
     password: string
 
     @ApiProperty()
