@@ -15,6 +15,8 @@ export class AuthService {
   async login(loginData: LoginDto){
 
     const {email, password} = loginData;
+    console.log(email)
+    console.log(password)
     const user = await this.dataservice.user.findFirst({
       where:{
         email: email
@@ -23,11 +25,13 @@ export class AuthService {
     if(!user){
       throw new NotFoundException("No user exists with the entered email")
     }
+    console.log(user)
     const validatePassword = await bcrypt.compare(password, user.password)
     if(!validatePassword){
       throw new NotFoundException("Wrong password")
     }
 
+    console.log(this.jwtservice.sign({email}))
     return {
       token: this.jwtservice.sign({email})
     }
